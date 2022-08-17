@@ -4,6 +4,21 @@ const header = document.querySelector('.header');
 const headerH1 = document.querySelector('.header-h1');
 const pargragh = document.querySelector('.pargragh');
 const container = document.querySelector('.container');
+
+const handleSerach = (searchedValue) => {
+  fetch('/api/movies')
+    .then((response) => response.json())
+    .then((data) => {
+      const filteredData = data.filter((e) => {
+        const lower = e.title.toLowerCase();
+        return lower === (searchedValue)
+      });
+      container.textContent = '';
+      domHandleMovieCard(filteredData);
+    })
+    .catch((err) => console.log(err));
+};
+
 const domHandlerAutoComplete = (data) => {
   const lowerCase = data.map((ele) => ele.title.toLowerCase());
   lowerCase.forEach((ele) => {
@@ -15,6 +30,7 @@ const domHandlerAutoComplete = (data) => {
     li.addEventListener('click', () => {
       list.style.display = 'none';
       input.value = li.textContent;
+      handleSerach(input.value);
     });
   });
 };
@@ -65,3 +81,5 @@ const getAllMovies = () => {
 };
 
 getAllMovies();
+
+
