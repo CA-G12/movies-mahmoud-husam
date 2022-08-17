@@ -2,7 +2,7 @@ const header = document.querySelector('.header');
 const headerH1 = document.querySelector('.header-h1');
 const headerH2 = document.querySelector('.header-h2');
 const imagMove = document.querySelector('.imag-move');
-const pargragh = document.querySelector('.pargragh')
+const pargragh = document.querySelector('.pargragh');
 
 const searchParam = new URLSearchParams(window.location.search);
 const movieId = searchParam.get('q') || 162;
