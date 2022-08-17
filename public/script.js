@@ -3,6 +3,7 @@ const list = document.querySelector('.list');
 const header = document.querySelector('.header');
 const headerH1 = document.querySelector('.header-h1');
 const pargragh = document.querySelector('.pargragh');
+const container = document.querySelector('.container');
 const domHandlerAutoComplete = (data) => {
   const lowerCase = data.map((ele) => ele.title.toLowerCase());
   lowerCase.forEach((ele) => {
@@ -17,6 +18,14 @@ const domHandlerAutoComplete = (data) => {
     });
   });
 };
+const domHandleMovieCard = (data) => {
+  data.forEach((obj) => {
+    const div = document.createElement('div');
+    div.style.backgroundImage = `url(${`https://image.tmdb.org/t/p/w500${obj.backdrop_path}`})`;
+    container.appendChild(div);
+  });
+};
+
 document.body.onclick = (e) => {
   if (!e.target.matches('.search')) {
     list.style.display = 'none';
@@ -40,11 +49,19 @@ input.addEventListener('input', (e) => {
 });
 const getLastMoves = () => {
   fetch('/api')
-    .then((response) => response.json()).then((result) => { 
-      header.style.backgroundImage = `url(${'https://image.tmdb.org/t/p/w500' + result.backdrop_path})`
+    .then((response) => response.json()).then((result) => {
+      header.style.backgroundImage = `url(${`https://image.tmdb.org/t/p/w500${result.backdrop_path}`})`;
       pargragh.textContent = result.overview;
       headerH1.textContent = result.original_title;
     })
     .catch(console.log);
 };
 getLastMoves();
+const getAllMovies = () => {
+  fetch('/api/movies')
+    .then((response) => response.json())
+    .then((data) => domHandleMovieCard(data))
+    .catch((err) => console.log(err));
+};
+
+getAllMovies();
