@@ -4,20 +4,29 @@ const header = document.querySelector('.header');
 const headerH1 = document.querySelector('.header-h1');
 const pargragh = document.querySelector('.pargragh');
 const container = document.querySelector('.container');
-
+const loadmore = document.querySelector('.loadmore');
 const handleSerach = (searchedValue) => {
   fetch('/api/movies')
     .then((response) => response.json())
     .then((data) => {
       const filteredData = data.filter((e) => {
         const lower = e.title.toLowerCase();
-        return lower === (searchedValue)
+        return lower === (searchedValue);
       });
       container.textContent = '';
+      // eslint-disable-next-line no-use-before-define
       domHandleMovieCard(filteredData);
     })
     .catch((err) => console.log(err));
 };
+
+loadmore.addEventListener('click', () => {
+  fetch('/api/movies/loadmore')
+    .then((response) => response.json())
+    // eslint-disable-next-line no-use-before-define
+    .then((data) => domHandleMovieCard(data.results))
+    .catch((err) => console.log(err));
+});
 
 const domHandlerAutoComplete = (data) => {
   const lowerCase = data.map((ele) => ele.title.toLowerCase());
@@ -34,11 +43,19 @@ const domHandlerAutoComplete = (data) => {
     });
   });
 };
+
+// const fetchMoves = () => {
+
+// };
 const domHandleMovieCard = (data) => {
   data.forEach((obj) => {
     const div = document.createElement('div');
     div.style.backgroundImage = `url(${`https://image.tmdb.org/t/p/w500${obj.backdrop_path}`})`;
     container.appendChild(div);
+    div.addEventListener('click', () => {
+      // eslint-disable-next-line no-restricted-globals
+      location.href = `/move.html?q=${obj.id}`;
+    });
   });
 };
 
@@ -81,5 +98,3 @@ const getAllMovies = () => {
 };
 
 getAllMovies();
-
-
