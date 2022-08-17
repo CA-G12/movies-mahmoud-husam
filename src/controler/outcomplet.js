@@ -1,5 +1,5 @@
 const fetch = require('node-fetch');
-const process = require('dotenv').config();
+require('dotenv').config();
 
 const key = process.env.API_KEY;
 const postData = (req, res) => {
