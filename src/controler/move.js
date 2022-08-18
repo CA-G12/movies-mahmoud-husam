@@ -1,7 +1,7 @@
 const fetch = require('node-fetch');
-const process = require('dotenv').config();
+require('dotenv').config();
 
-const key = process.parsed.API_KEY;
+const key = process.env.API_KEY;
 let a = 1;
 const move = (req, res) => {
   fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${key}&page=${a += 1}`)
