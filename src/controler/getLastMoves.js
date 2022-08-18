@@ -6,7 +6,7 @@ const getLastMoves = (req, res) => {
   fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${key}&page=100`)
     .then((responce) => responce.json())
     .then((result) => {
-      const filterData = result.results[0];
+      const filterData = result.results[1];
       res.json(filterData);
     });
 };

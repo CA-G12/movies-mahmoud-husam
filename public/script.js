@@ -44,9 +44,6 @@ const domHandlerAutoComplete = (data) => {
   });
 };
 
-// const fetchMoves = () => {
-
-// };
 const domHandleMovieCard = (data) => {
   data.forEach((obj) => {
     const div = document.createElement('div');
@@ -83,7 +80,7 @@ input.addEventListener('input', (e) => {
 const getLastMoves = () => {
   fetch('/api')
     .then((response) => response.json()).then((result) => {
-      header.style.backgroundImage = `url(${`https://image.tmdb.org/t/p/w500${result.backdrop_path}`})`;
+      header.style.backgroundImage = `url(https://image.tmdb.org/t/p/w500${result.backdrop_path})`;
       pargragh.textContent = result.overview;
       headerH1.textContent = result.original_title;
     })
